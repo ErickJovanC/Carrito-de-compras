@@ -91,14 +91,17 @@ function eliminarCurso(e){
 // Elimina todos los curso del carrito en el DOM
 function vaciarCarrito(){
     // Vacia el carrito pero puede ser un poco lento
-    /* listaCursos.innerHTML = ''; 
-    return false; */
+    /* listaCursos.innerHTML = ''; */
 
     /* Forma rápida y recomendada. 
     Recorre la lista de curso y elimina los elementos hasta que la lista esta vacia */
     while(listaCursos.firstChild){
         listaCursos.removeChild(listaCursos.firstChild);
     }
+
+    vaciarCarritoLS();
+
+    return false; // Evita efecto de salto
 }
 
 function guardarCursoLocalStorage(curso){
@@ -156,10 +159,19 @@ function leerLocalStorage(){
 function eliminarCursoLocalStorage(curso){
     let cursosLS;
     cursosLS = obtenerCursosLocalStorage();
+
+    // Recorremos los curso del LS y compara el id
     cursosLS.forEach(function(cursoLS, index){
         if(cursoLS.id === curso){
             cursosLS.splice(index, 1);
         }
     });
+
+    // Añadimos los cursos restantes
     localStorage.setItem('cursos', JSON.stringify(cursosLS));
+}
+
+// Elimina todos los curso del LS
+function vaciarCarritoLS(){
+    localStorage.clear();
 }
