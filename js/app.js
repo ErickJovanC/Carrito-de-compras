@@ -91,8 +91,27 @@ function vaciarCarrito(){
 
 function guardarCursoLocalStorage(curso){
     let cursos;
+
+    // Toma el valor de un arreglo del LS o uno vacio
+    cursos = obtenerCursosLocalStorage();
+    
+    // El curso seleccionado se agrega al arreglo
+    cursos.push(curso);
+
+    localStorage.setItem('cursos', JSON.stringify(cursos));
 }
 
+// Comprueba que haya elementos en LS
 function obtenerCursosLocalStorage(){
-    let
+    let cursosLS;
+
+    // Comprobamos si hay algo en LS
+    if(localStorage.getItem('cursos') === null){
+        cursosLS = [];
+    }
+    else{
+        cursosLS = JSON.parse(localStorage.getItem('cursos'));
+    }
+
+    return cursosLS;
 }
